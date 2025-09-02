@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Translator Bot will be documented in this file.  
+All notable changes to Translator Bot will be documented in this file.
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
@@ -12,6 +12,8 @@ This project follows [Semantic Versioning](https://semver.org/).
 - Health checks now include latency (ms) and error codes for Discord, Redis, and Translate.
 
 ### Fixed
+- `/q purge` no longer times out; uses deferred replies and completes reliably.
+- `/q healwebhooks` now uses deferred replies and handles errors per channel, preventing command failure.
 - Mentions (`@user`, `@role`, `@everyone`) preserved correctly in translated messages.
 - Admin notifications throttled to avoid spam.
 - Various TypeScript fixes and interaction handling.
