@@ -5,6 +5,20 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.3.0] - 2025-09-03
+### Added
+- Support for upgrading plain-text mentions (e.g. `@navn`) in language channels to real Discord mentions (`<@id>`), so pings now propagate correctly to the main channel.
+- Fuzzy mention resolution: matches display names and usernames, supports Unicode/diacritics, and resolves unique `startsWith` or substring matches.
+- Debug logging for Discord client lifecycle, shard events, and unhandled errors.
+- Token preflight check on startup to verify `DISCORD_TOKEN` validity.
+
+### Fixed
+- Removed duplicate helper function that caused TypeScript syntax errors.
+- Corrected placement of `client.on(...)` event handlers to avoid “used before declaration” errors.
+- Cleaned up intents array (removed stray commas) and ensured `GuildMembers` intent is included exactly once.
+
+---
+
 ## [1.2.0] - 2025-09-02
 ### Added
 - Dead Letter Queue (DLQ) system for failed jobs.
