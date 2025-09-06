@@ -5,17 +5,33 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.3.0] - 2025-09-03
+## [2.0.0] - 2025-09-06
 ### Added
-- Support for upgrading plain-text mentions (e.g. `@navn`) in language channels to real Discord mentions (`<@id>`), so pings now propagate correctly to the main channel.
-- Fuzzy mention resolution: matches display names and usernames, supports Unicode/diacritics, and resolves unique `startsWith` or substring matches.
-- Debug logging for Discord client lifecycle, shard events, and unhandled errors.
-- Token preflight check on startup to verify `DISCORD_TOKEN` validity.
+- **Manual translation via context menus**:
+  - `Translate → My Language`: instantly translate a message into the user’s Discord app language.
+  - `Translate → Choose Language`: dropdown to translate into one of 25 common languages.
+- **Bulk linking**: `/link bulk` to set up multiple channel-language pairs in one go.
+- **Localization system (`i18n.ts`)** for ephemeral responses. Supports English (default), Norwegian, and partial translations for several other locales.
+- Ephemeral replies now use the correct Discord **flags** API instead of deprecated `ephemeral: true`.
+
+### Changed
+- Major **file structure refactor**:
+  - Split large `index.ts` into `bot.ts`, `register-commands.ts`, `queues/`, `commands/`, `services/`, and `interactions/`.
+  - Removed obsolete `store.ts` and `data/stats.ts`.
+- `/q` commands cleaned up and stabilized:
+  - `/q stats`, `/q status`, `/q dlq`, `/q notify`, `/q healwebhooks` now work consistently.
+  - Notifications can be configured per guild, and notify handler simplified.
+- Improved webhook handling, translation error fallback, and message masking/restoration.
+- Language dropdown reduced to 25 most common languages (single clean menu).
 
 ### Fixed
-- Removed duplicate helper function that caused TypeScript syntax errors.
-- Corrected placement of `client.on(...)` event handlers to avoid “used before declaration” errors.
-- Cleaned up intents array (removed stray commas) and ensured `GuildMembers` intent is included exactly once.
+- `/q stats` hanging issue resolved.
+- Errors like “Cannot read properties of undefined (reading 'delivered')” eliminated by updating queue/stat handling.
+- Compatibility fixes for BullMQ and ioredis APIs.
+- Corrected TypeScript configuration (`moduleResolution: NodeNext`) for builds.
+- Removed deprecated `ready` event name (now `clientReady`).
+- Prevented multiple PM2 processes from handling the same interactions.
+- Fixed `Unknown interaction` errors by properly deferring/updating component interactions.
 
 ---
 
